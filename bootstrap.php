@@ -6,7 +6,7 @@ switch ($global_app_name)
 {
     case "admin":
         // register event listener
-        \Dsc\System::instance()->getDispatcher()->addListener(\Assets\Listener::instance());
+        \Dsc\System::instance()->getDispatcher()->addListener(\Redirect\Listener::instance());
 
         // register all the routes
         
