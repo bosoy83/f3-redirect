@@ -2,7 +2,7 @@
     "name": "dioscouri/f3-redirect",
     "type": "component",
     "description": "Redirection component for the F3-framework",
-    "keywords": ["F3","RAD", "Media Asset Manager"],
+    "keywords": ["F3","RAD", "Routes Manager"],
     "homepage": "https://github.com/dioscouri/f3-redirect",
     "license": "GPL",
     "authors": [

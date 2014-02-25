@@ -14,8 +14,8 @@ class Listener extends \Prefab
             $mapper->route = '';
             $mapper->icon = 'fa fa-external-link';
             $mapper->children = array(
-                    json_decode(json_encode(array( 'title'=>'Routes', 'route'=>'/admin/routes', 'icon'=>'fa fa-list' )))
-                    ,json_decode(json_encode(array( 'title'=>'Add New', 'route'=>'/admin/route', 'icon'=>'fa fa-plus' )))
+                    json_decode(json_encode(array( 'title'=>'Routes', 'route'=>'/admin/redirect/routes', 'icon'=>'fa fa-list' )))
+                    ,json_decode(json_encode(array( 'title'=>'Add New', 'route'=>'/admin/redirect/route', 'icon'=>'fa fa-plus' )))
             );
             $mapper->save();
             

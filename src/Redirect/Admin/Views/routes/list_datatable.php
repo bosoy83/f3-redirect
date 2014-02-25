@@ -1,6 +1,3 @@
-<?php //echo \Dsc\Debug::dump( $state, false ); ?>
-<?php //echo \Dsc\Debug::dump( $list ); ?>
-        
 <div class="row datatable-header">
     <div class="col-sm-6">
         <div class="row row-marginless">
@@ -34,7 +31,7 @@
     <div class="col-md-6 col-lg-4 input-group">
         <select id="bulk-actions" name="bulk_action" class="form-control">
             <option value="null">-Bulk Actions-</option>
-            <option value="delete" data-action="./admin/assets/delete">Delete</option>
+            <option value="delete" data-action="./admin/redirect/delete">Delete</option>
         </select>
         <span class="input-group-btn">
             <button class="btn btn-default bulk-actions" type="button" data-target="bulk-actions">Apply</button>
@@ -48,10 +45,7 @@
 	<thead>
 		<tr>
 		    <th class="checkbox-column"><input type="checkbox" class="icheck-input"></th>
-		    <th class="col-md-1"></th>
-			<th data-sortable="metadata.title">Title</th>
-			<th class="col-md-1" data-sortable="storage">Location</th>
-			<th>Tags</th>
+			<th class="col-md-7" data-sortable="metadata.title">Title</th>
 			<th data-sortable="metadata.created.time">Created</th>
 			<th data-sortable="metadata.last_modified.time">Last Modified</th>
 			<th class="col-md-1"></th>
@@ -68,48 +62,16 @@
             </td>
             
             <td class="">
-                <?php if ($item->thumb) { ?>
-                    <?php if ($item->isImage()) { ?>
-                	<div class="thumbnail text-center">
-                    	<div class="thumbnail-view">
-                    		<a class="thumbnail-view-hover ui-lightbox" href="./asset/<?php echo $item->{'metadata.slug'}; ?>">
-                    		</a>
-                            <img src="<?php echo \Dsc\Image::dataUri( $item->thumb->bin ); ?>" alt="<?php echo $item->{'metadata.title'}; ?>" />
-				        </div>
-				    </div> <!-- /.thumbnail -->                
-                    <?php } else { ?>
-                        <div class="thumbnail text-center">
-                        <a href="./admin/asset/<?php echo $item->id; ?>/edit">
-                        <img src="<?php echo \Dsc\Image::dataUri( $item->thumb->bin ); ?>" alt="<?php echo $item->{'metadata.title'}; ?>" />
-                        </a>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
-            </td>
-            
-            <td class="">
                 <h5>
-                <a href="./admin/asset/<?php echo $item->id; ?>/edit">
+                <a href="./admin/redirect/route/<?php echo $item->id; ?>/edit">
                 <?php echo $item->{'metadata.title'}; ?>
                 </a>
                 </h5>
 
-                <a class="help-block" target="_blank" href="./asset/<?php echo $item->{'metadata.slug'}; ?>">
-                /<?php echo $item->{'metadata.slug'}; ?>
+                <a class="help-block" target="_blank" href="./<?php echo $item->{'url.redirect'}; ?>">
+                /<?php echo $item->{'url.redirect'}; ?>
                 </a>
-                
-                <p class="help-block">
-                MD5: <?php echo $item->{'md5'} ? $item->{'md5'} : '<span class="text-danger"><strong>Invalid</strong></span>'; ?>
-                </p>
 
-            </td>
-            
-            <td class="">
-            <?php echo $item->{'storage'}; ?>
-            </td>
-             
-            <td class="">
-            <?php echo implode(", ", (array) $item->{'metadata.tags'} ); ?>
             </td>
             
             <td class="">
@@ -122,11 +84,11 @@
             </td>
                 
             <td class="text-center">
-                <a class="btn btn-xs btn-secondary" href="./admin/asset/<?php echo $item->_id; ?>/edit">
+                <a class="btn btn-xs btn-secondary" href="./admin/redirect/route/<?php echo $item->_id; ?>/edit">
                     <i class="fa fa-pencil"></i>
                 </a>
                 &nbsp;
-                <a class="btn btn-xs btn-danger" data-bootbox="confirm" href="./admin/asset/<?php echo $item->_id; ?>/delete">
+                <a class="btn btn-xs btn-danger" data-bootbox="confirm" href="./admin/redirect/route/<?php echo $item->_id; ?>/delete">
                     <i class="fa fa-times"></i>
                 </a>
             </td>

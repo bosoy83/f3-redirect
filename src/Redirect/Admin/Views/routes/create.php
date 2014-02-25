@@ -1,4 +1,4 @@
-<form id="detail-form" action="./admin/route" class="form" method="post">
+<form id="detail-form" action="./admin/redirect/route/add" class="form" method="post">
     <div class="row">
         <div class="col-md-12">
             <div class="form-actions clearfix">
@@ -20,7 +20,7 @@
                         </ul>
                     </div>                          
                     &nbsp;
-                    <a class="btn btn-default" href="./admin/route">Cancel</a>
+                    <a class="btn btn-default" href="./admin/redirect/routes">Cancel</a>
                 </div>
 
             </div>
@@ -31,23 +31,23 @@
             <div class="form-group clearfix">
 	            <label class="col-md-3">Title</label>
 				<div class="col-md-7">
-	                 <input type="text" name="title" placeholder="Title" value="<?php echo $flash->old('title'); ?>" class="form-control" />
+	                 <input type="text" name="metadata[title]" placeholder="Title" value="<?php echo $flash->old('metadata.title'); ?>" class="form-control" />
 	           </div>
             </div>
             <!-- /.form-group -->
 
             <div class="form-group clearfix">
-	            <label class="col-md-3">URL</label>
+	            <label class="col-md-3">Original URL</label>
 	            <div class="col-md-7">
-					<input type="text" name="url" placeholder="URL" value="<?php echo $flash->old('url'); ?>" class="form-control" />
+					<input type="text" name="url[original]" placeholder="Original URL" value="<?php echo $flash->old('url.original'); ?>" class="form-control" />
 				</div>
             </div>
             <!-- /.form-group -->
 
             <div class="form-group clearfix">
-	            <label class="col-md-3">Redirection</label>
+	            <label class="col-md-3">New Redirection</label>
 	            <div class="col-md-7">
-					<input type="text" name="new_route" placeholder="New route" value="<?php echo $flash->old('new_route'); ?>" class="form-control" />
+					<input type="text" name="url[redirect]" placeholder="New Redirection" value="<?php echo $flash->old('url.redirect'); ?>" class="form-control" />
 				</div>
             </div>
             <!-- /.form-group -->

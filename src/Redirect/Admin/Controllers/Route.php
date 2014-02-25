@@ -5,10 +5,10 @@ class Route extends \Admin\Controllers\Base
 {
     use \Dsc\Traits\Controllers\CrudItem;
 
-    protected $list_route = '/admin/routes';
-    protected $create_item_route = '/admin/route';
-    protected $get_item_route = '/admin/route/{id}';    
-    protected $edit_item_route = '/admin/route/{id}/edit';
+    protected $list_route = '/admin/redirect/routes';
+    protected $create_item_route = '/admin/redirect/route';
+    protected $get_item_route = '/admin/redirect/route/{id}';    
+    protected $edit_item_route = '/admin/redirect/route/{id}/edit';
     
     protected function getModel() 
     {
@@ -71,4 +71,10 @@ class Route extends \Admin\Controllers\Base
     }
     
     protected function displayRead() {}
+    
+    public function quickadd()
+    {
+    	$view = \Dsc\System::instance()->get('theme');
+    	echo $view->renderView('Redirect/Admin/Views::routes/quickadd.php');
+    }
 }
