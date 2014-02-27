@@ -6,8 +6,8 @@ class Route extends \Admin\Controllers\Base
     use \Dsc\Traits\Controllers\CrudItem;
 
     protected $list_route = '/admin/redirect/routes';
-    protected $create_item_route = '/admin/redirect/route';
-    protected $get_item_route = '/admin/redirect/route/{id}';    
+    protected $create_item_route = '/admin/redirect/route/craete';
+    protected $get_item_route = '/admin/redirect/route/read/{id}';    
     protected $edit_item_route = '/admin/redirect/route/edit/{id}';
     
     protected function getModel() 
