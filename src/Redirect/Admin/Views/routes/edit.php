@@ -1,4 +1,4 @@
-<form id="detail-form" action="./admin/redirect/route/<?php echo $item->get( $model->getItemKey() ); ?>/update" class="form" method="post">
+<form id="detail-form" action="./admin/redirect/route/update/<?php echo $item->get( $model->getItemKey() ); ?>" class="form" method="post">
     <div class="row">
         <div class="col-md-12">
             <div class="form-actions clearfix">

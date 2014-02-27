@@ -31,56 +31,7 @@ class Routes extends \Dsc\Routes\Group{
 										'action' => 'getDatatable',
 										'ajax' => 'true'
 										));
-
-		$this->add( '/routes', array('GET', 'POST'), array(
-				'controller' => 'Routes',
-				'action' => 'display'
-		));
-
-		$this->add( '/routes/delete', array('GET', 'POST'), array(
-				'controller' => 'Routes',
-				'action' => 'delete'
-		));
-
-		$this->add( '/route', 'GET', array(
-				'controller' => 'Route',
-				'action' => 'create'
-		));
-		
-		$this->add( '/route', 'POST', array(
-				'controller' => 'Route',
-				'action' => 'add'
-		));
-		
-		$this->add( '/route', 'POST', array(
-				'controller' => 'Route',
-				'action' => 'add'
-		));
-		
-		$this->add( '/route/@id/read', 'GET', array(
-				'controller' => 'Route',
-				'action' => 'read'
-		));
-
-		$this->add( '/route/@id/edit', 'GET', array(
-				'controller' => 'Route',
-				'action' => 'edit'
-		));
-		
-
-		$this->add( '/route/@id/update', 'POST', array(
-				'controller' => 'Route',
-				'action' => 'update'
-		));		
-
-		$this->add( '/route/@id', 'DELETE', array(
-				'controller' => 'Route',
-				'action' => 'delete'
-		));
-
-		$this->add( '/route/@id/delete', 'GET', array(
-				'controller' => 'Route',
-				'action' => 'delete'
-		));
+		$this->addCrudList( 'Routes' );
+		$this->addCrudItem( 'Route' );
 	}
 }

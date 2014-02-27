@@ -9,7 +9,7 @@ class Routes extends \Admin\Controllers\Base
         return $model;
     }
 	
-	public function display()
+	public function index()
     {
         \Base::instance()->set('pagetitle', 'Routes');
         \Base::instance()->set('subtitle', '');

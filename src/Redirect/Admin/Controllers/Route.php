@@ -8,7 +8,7 @@ class Route extends \Admin\Controllers\Base
     protected $list_route = '/admin/redirect/routes';
     protected $create_item_route = '/admin/redirect/route';
     protected $get_item_route = '/admin/redirect/route/{id}';    
-    protected $edit_item_route = '/admin/redirect/route/{id}/edit';
+    protected $edit_item_route = '/admin/redirect/route/edit/{id}';
     
     protected function getModel() 
     {
