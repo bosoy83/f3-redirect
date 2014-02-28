@@ -9,7 +9,7 @@ switch ($global_app_name)
         \Dsc\System::instance()->getDispatcher()->addListener(\Redirect\Listener::instance());
 
         // register all the routes        
-        \Dsc\System::instance()->get('router')->mount( new \Redirect\Routes );
+        \Dsc\System::instance()->get('router')->mount( new \Redirect\Routes, 'redirect' );
         
         // append this app's UI folder to the path
         // new way
