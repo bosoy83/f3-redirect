@@ -42,8 +42,7 @@ class Route extends \Admin\Controllers\Base
         $all_tags = $this->getModel()->getTags();
         \Base::instance()->set('all_tags', $all_tags );
         
-        $view = new \Dsc\Template;
-        echo $view->render('Redirects/Admin/Views::routes/create.php');
+        echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/create.php');
     }
     
     protected function displayEdit()
@@ -56,7 +55,7 @@ class Route extends \Admin\Controllers\Base
         
 		$view = new \Dsc\Template;
         
-        echo $view->render('Redirects/Admin/Views::routes/edit.php');
+        echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/edit.php');
     }
     
     /**
@@ -74,7 +73,6 @@ class Route extends \Admin\Controllers\Base
     
     public function quickadd()
     {
-    	$view = \Dsc\System::instance()->get('theme');
-    	echo $view->renderView('Redirect/Admin/Views::routes/quickadd.php');
+    	echo \Dsc\System::instance()->get('theme')->renderView('Redirect/Admin/Views::routes/quickadd.php');
     }
 }
