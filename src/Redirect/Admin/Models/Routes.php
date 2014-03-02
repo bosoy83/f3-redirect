@@ -3,6 +3,7 @@ namespace Redirect\Admin\Models;
 
 class Routes extends \Dsc\Mongo\Collection
 {
+    protected $crud_item_key = "_id";
 	protected $__collection_name= 'redirect.routes';
 	protected $__config = array(
 			'default_sort' => array(
@@ -15,7 +16,47 @@ class Routes extends \Dsc\Mongo\Collection
 	public $title;
 	public $url = array(); // array having two elements -> original and redirect
 	
-	    
+	protected function fetchConditions()
+	{
+		parent::fetchConditions();
+	
+		$filter_keyword = $this->getState('filter.keyword');
+		if ($filter_keyword && is_string($filter_keyword))
+		{
+			$key =  new \MongoRegex('/'. $filter_keyword .'/i');
+	
+			$where = array();
+			$where[] = array('title'=>$key);
+			$where[] = array('original'=>$key);
+			$where[] = array('redirect'=>$key);
+	
+			$this->setCondition('$or', $where);
+		}
+	
+		$filter_id = $this->getState('filter.id');
+		if (strlen($filter_id))
+		{
+			$this->setCondition('_id', new \MongoId((string) $filter_id));
+		}
+	
+		$filter_title = $this->getState('filter.title');
+		if (strlen($filter_title))
+		{
+			$this->setCondition('title', $filter_title);
+		}
+		$filter_ids = $this->getState('filter.ids');
+		if (!empty($filter_ids) && is_array($filter_ids))
+		{
+			$ids = array();
+			foreach ($filter_ids as $filter_id) {
+				$ids[] = new \MongoId((string) $filter_id);
+			}
+			$this->setCondition('_id', array('$in' => $ids));
+		}
+	
+		return $this;
+	}
+	
     public function validate()
     {
         if (empty($this->title)) {

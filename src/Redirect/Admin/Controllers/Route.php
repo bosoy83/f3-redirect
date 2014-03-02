@@ -38,9 +38,6 @@ class Route extends \Admin\Controllers\BaseAuth
     {
         $f3 = \Base::instance();
         $f3->set('pagetitle', 'Create New Route');
-
-        $all_tags = $this->getModel()->getTags();
-        \Base::instance()->set('all_tags', $all_tags );
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/create.php');
     }
@@ -49,11 +46,6 @@ class Route extends \Admin\Controllers\BaseAuth
     {
         $f3 = \Base::instance();
         $f3->set('pagetitle', 'Edit Route');
-
-        $all_tags = $this->getModel()->getTags();
-        \Base::instance()->set('all_tags', $all_tags );
-        
-		$view = new \Dsc\Template;
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/edit.php');
     }

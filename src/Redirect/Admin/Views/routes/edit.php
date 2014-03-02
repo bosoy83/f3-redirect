@@ -31,7 +31,7 @@
             <div class="form-group clearfix">
 	            <label class="col-md-3">Title</label>
 				<div class="col-md-7">
-	                 <input type="text" name="metadata[title]" placeholder="Title" value="<?php echo $flash->old('metadata.title'); ?>" class="form-control" />
+	                 <input type="text" name="title" placeholder="Title" value="<?php echo $flash->old('title'); ?>" class="form-control" />
 	           </div>
             </div>
             <!-- /.form-group -->

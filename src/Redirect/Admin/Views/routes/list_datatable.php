@@ -63,7 +63,7 @@
             
             <td class="">
                 <h5>
-                <a href="./admin/redirect/route/edit/<?php echo $item->id; ?>">
+                <a href="./admin/redirect/route/edit/<?php echo $item->_id; ?>">
                 <?php echo $item->{'title'}; ?>
                 </a>
                 </h5>
