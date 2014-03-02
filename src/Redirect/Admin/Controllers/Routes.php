@@ -6,10 +6,6 @@ class Routes extends \Admin\Controllers\BaseAuth
     protected function getModel()
     {
         $model = new \Redirect\Admin\Models\Routes;
-        $model->populateState();
-        $model->setParam( 'skip', $model->getState('list.offset', 0) );
-        $model->setParam( 'limit', $model->getState('list.limit', 0) );
-        print_r( $model->getState('list.limit', 0) );
         return $model;
     }
 	
@@ -19,7 +15,10 @@ class Routes extends \Admin\Controllers\BaseAuth
         \Base::instance()->set('subtitle', '');
         
         $model = $this->getModel();
-        $state = $model->populateState()->setState('filter.type', true)->getState();
+        $model->populateState();
+        $state = $model->setState('filter.type', true)->getState();
+        $model->setParam( 'skip', $model->getState('list.offset', 0) );
+        $model->setParam( 'limit', $model->getState('list.limit', 0) );
         \Base::instance()->set('state', $state );
         \Base::instance()->set('pagination' ,$model->paginate() );
         \Base::instance()->set('list' ,$model->getItems() );
@@ -34,6 +33,8 @@ class Routes extends \Admin\Controllers\BaseAuth
         
         $state = $model->populateState()->getState();
         \Base::instance()->set('state', $state );
+        $model->setParam( 'skip', $model->getState('list.offset', 0) );
+        $model->setParam( 'limit', $model->getState('list.limit', 0) );
         
         \Base::instance()->set('pagination', $model->paginate() );
         \Base::instance()->set('list', $model->getItems() );
