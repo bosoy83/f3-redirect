@@ -4,6 +4,11 @@ namespace Redirect\Admin\Models;
 class Routes extends \Dsc\Mongo\Collection
 {
 	protected $__collection_name= 'redirect.routes';
+	protected $__config = array(
+			'default_sort' => array(
+					'title' => 1
+			),
+	);
 	
 	// strict document format
 	public $_id;

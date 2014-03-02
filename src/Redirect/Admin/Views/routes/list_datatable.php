@@ -53,9 +53,9 @@
 	</thead>
 	<tbody>    
 
-    <?php if ( $pagination->total_items > 0) { ?>
+    <?php if ( count($list) > 0) { ?>
 
-    <?php foreach ($pagination->items as $item) { ?>
+    <?php foreach ($list as $item) { ?>
         <tr>
             <td class="checkbox-column">
                 <input type="checkbox" class="icheck-input" name="ids[]" value="<?php echo $item->_id; ?>">
