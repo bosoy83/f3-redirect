@@ -47,13 +47,13 @@
                 </div>    
                 <div class="col-xs-12 col-sm-7 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
                     <div class="row text-align-right">
-                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                             <?php if (!empty($paginated->total_pages) && $paginated->total_pages > 1) { ?>
                                 <?php echo $paginated->serve(); ?>
                             <?php } ?>
                         </div>
                         <?php if (!empty($paginated->items)) { ?>
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                             <span class="pagination">
                             <?php echo $paginated->getLimitBox( $state->get('list.limit') ); ?>
                             </span>
@@ -99,7 +99,7 @@
 	                </h5>
 	
 	                <a class="help-block" target="_blank" href="./<?php echo $item->{'url.redirect'}; ?>">
-	                /<?php echo $item->{'url.redirect'}; ?>
+	                /<?php echo $item->{'url.original'}; ?>
 	                </a>
 	
 	            </td>

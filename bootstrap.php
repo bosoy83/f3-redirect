@@ -23,8 +23,14 @@ switch ($global_app_name)
             function($f3) {
                
                if($f3->get('ERROR.code') == '404')  {
-//                $redirect = (new \Redirect\Factory($PARAMS[0]))->redirect();
-
+               		// lets find a proper redirection, if exists
+        			$model = new \Redirect\Admin\Models\Routes;
+               		$path = substr( $model->inputFilter()->clean($f3->hive()['PATH'], 'string'), 1 );
+        			$model->populateState()->setState( 'filter.url.original', $path);
+        			$routes = $model->getItems();
+        			if( count( $routes ) == 1 ) {
+        				$f3->reroute( '/'.$routes[0]->{'url.redirect'});
+        			}
                }
                
             }

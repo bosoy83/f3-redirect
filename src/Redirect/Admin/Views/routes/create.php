@@ -39,7 +39,10 @@
             <div class="form-group clearfix">
 	            <label class="col-md-3">Original URL</label>
 	            <div class="col-md-7">
-					<input type="text" name="url[original]" placeholder="Original URL" value="<?php echo $flash->old('url.original'); ?>" class="form-control" />
+	            	<div class="input-group">
+						<span class="input-group-addon">/</span>
+	            		<input type="text" name="url[original]" placeholder="Original URL" value="<?php echo $flash->old('url.original'); ?>" class="form-control" />
+					</div>
 				</div>
             </div>
             <!-- /.form-group -->
@@ -47,7 +50,10 @@
             <div class="form-group clearfix">
 	            <label class="col-md-3">New Redirection</label>
 	            <div class="col-md-7">
-					<input type="text" name="url[redirect]" placeholder="New Redirection" value="<?php echo $flash->old('url.redirect'); ?>" class="form-control" />
+	            	<div class="input-group">
+						<span class="input-group-addon">/</span>
+	            		<input type="text" name="url[redirect]" placeholder="New Redirection" value="<?php echo $flash->old('url.redirect'); ?>" class="form-control" />
+	            	</div>
 				</div>
             </div>
             <!-- /.form-group -->

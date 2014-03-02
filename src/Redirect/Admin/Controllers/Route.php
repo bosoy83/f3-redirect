@@ -6,7 +6,7 @@ class Route extends \Admin\Controllers\BaseAuth
     use \Dsc\Traits\Controllers\CrudItem;
 
     protected $list_route = '/admin/redirect/routes';
-    protected $create_item_route = '/admin/redirect/route/craete';
+    protected $create_item_route = '/admin/redirect/route/create';
     protected $get_item_route = '/admin/redirect/route/read/{id}';    
     protected $edit_item_route = '/admin/redirect/route/edit/{id}';
     

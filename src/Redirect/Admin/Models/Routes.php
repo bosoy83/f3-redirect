@@ -45,7 +45,7 @@ class Routes extends \Dsc\Mongo\Collection
 		}
 		
 		$filter_url_original = $this->getState('filter.url.original');
-		if (strlen($filter_title))
+		if (strlen($filter_url_original))
 		{
 			$this->setCondition('url.original', $filter_url_original);
 		}
@@ -78,7 +78,7 @@ class Routes extends \Dsc\Mongo\Collection
         }
         
         // is the original URL unique?
-        if ($this->collection()->count( array( 'original' => $this->{'url.original'} )) > 0 ) 
+        if ($this->collection()->count( array( 'url.original' => $this->{'url.original'} )) > 0 ) 
         {
 			$this->setError('Redirection for this route already exists.');
         }
