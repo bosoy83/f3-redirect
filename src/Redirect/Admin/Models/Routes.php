@@ -3,7 +3,6 @@ namespace Redirect\Admin\Models;
 
 class Routes extends \Dsc\Mongo\Collection
 {
-    protected $crud_item_key = "_id";
 	protected $__collection_name= 'redirect.routes';
 	protected $__config = array(
 			'default_sort' => array(
@@ -27,8 +26,8 @@ class Routes extends \Dsc\Mongo\Collection
 	
 			$where = array();
 			$where[] = array('title'=>$key);
-			$where[] = array('original'=>$key);
-			$where[] = array('redirect'=>$key);
+			$where[] = array('url.original'=>$key);
+			$where[] = array('urlredirect'=>$key);
 	
 			$this->setCondition('$or', $where);
 		}
@@ -44,6 +43,13 @@ class Routes extends \Dsc\Mongo\Collection
 		{
 			$this->setCondition('title', $filter_title);
 		}
+		
+		$filter_url_original = $this->getState('filter.url.original');
+		if (strlen($filter_title))
+		{
+			$this->setCondition('url.original', $filter_url_original);
+		}
+		
 		$filter_ids = $this->getState('filter.ids');
 		if (!empty($filter_ids) && is_array($filter_ids))
 		{
