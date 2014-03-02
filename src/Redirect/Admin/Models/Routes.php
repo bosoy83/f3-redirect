@@ -78,7 +78,10 @@ class Routes extends \Dsc\Mongo\Collection
         }
         
         // is the original URL unique?
-        if ($this->collection()->count( array( 'url.alias' => $this->{'url.alias'} )) > 0 ) 
+        if ($this->collection()->count( array( 
+			        		'url.alias' => ($this->{'url.alias'} ),
+			        		'_id' => array( '$ne' => $this->id) 
+        									))  > 0 ) 
         {
 			$this->setError('Redirection for this route already exists.');
         }
@@ -113,6 +116,7 @@ class Routes extends \Dsc\Mongo\Collection
     	}
     	
     	$this->metadata['last_modified'] = \Dsc\Mongo\Metastamp::getDate('now');
+
     	return parent::beforeSave();
     }
 }

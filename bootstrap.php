@@ -26,7 +26,7 @@ switch ($global_app_name)
                		// lets find a proper redirection, if exists
         			$model = new \Redirect\Admin\Models\Routes;
                		$path = substr( $model->inputFilter()->clean($f3->hive()['PATH'], 'string'), 1 );
-        			$model->populateState()->setState( 'filter.url.original', $path);
+        			$model->populateState()->setState( 'filter.url.alias', $path);
         			$routes = $model->getItems();
         			if( count( $routes ) == 1 ) {
         				$f3->reroute( '/'.$routes[0]->{'url.redirect'});

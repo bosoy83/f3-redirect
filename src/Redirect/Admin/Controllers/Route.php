@@ -3,7 +3,7 @@ namespace Redirect\Admin\Controllers;
 
 class Route extends \Admin\Controllers\BaseAuth
 {
-    use \Dsc\Traits\Controllers\CrudItem;
+    use \Dsc\Traits\Controllers\CrudItemCollection;
 
     protected $list_route = '/admin/redirect/routes';
     protected $create_item_route = '/admin/redirect/route/create';
