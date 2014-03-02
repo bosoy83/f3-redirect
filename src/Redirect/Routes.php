@@ -26,6 +26,7 @@ class Routes extends \Dsc\Routes\Group{
 				)
 		);
 		
+		$this->addSettingsRoutes();
 		$this->add( '/routes', 'GET', array(
 										'controller' => 'Routes',
 										'action' => 'getDatatable',

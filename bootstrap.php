@@ -30,7 +30,24 @@ switch ($global_app_name)
         			$routes = $model->getItems();
         			if( count( $routes ) == 1 ) {
         				$f3->reroute( '/'.$routes[0]->{'url.redirect'});
+        			} else { // use default error route
+        				$model = new \Redirect\Admin\Models\Settings;
+        				$model->populateState();
+        				$list = $model->getItems();
+        				if( count($list ) == 1 ){
+        					$redirect = $list[0]->{'general.default_error_404'};
+        					if( $path != $redirect ) {
+        						$f3->reroute( '/'.$list[0]->{'general.default_error_404'} );
+        					} else {
+        						// exploring infinite universe is fun, but not today
+        						$f3->reroute( '/' );
+        					}
+        				} else {
+        					// dude, now you're really out of it
+        					$f3->reroute( '/' );
+        				}
         			}
+        			
                }
                
             }

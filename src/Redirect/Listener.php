@@ -16,6 +16,7 @@ class Listener extends \Prefab
             $mapper->children = array(
                     json_decode(json_encode(array( 'title'=>'Routes', 'route'=>'/admin/redirect/routes', 'icon'=>'fa fa-list' )))
                     ,json_decode(json_encode(array( 'title'=>'Add New', 'route'=>'/admin/redirect/route/create', 'icon'=>'fa fa-plus' )))
+                    ,json_decode(json_encode(array( 'title'=>'Settings', 'route'=>'/admin/redirect/settings', 'icon'=>'fa fa-cogs' )))
             );
             $mapper->save();
             
