@@ -26,8 +26,8 @@ class Routes extends \Dsc\Mongo\Collection
 	
 			$where = array();
 			$where[] = array('title'=>$key);
-			$where[] = array('url.original'=>$key);
-			$where[] = array('urlredirect'=>$key);
+			$where[] = array('url.alias'=>$key);
+			$where[] = array('url.redirect'=>$key);
 	
 			$this->setCondition('$or', $where);
 		}
@@ -44,10 +44,10 @@ class Routes extends \Dsc\Mongo\Collection
 			$this->setCondition('title', $filter_title);
 		}
 		
-		$filter_url_original = $this->getState('filter.url.original');
-		if (strlen($filter_url_original))
+		$filter_url_alias = $this->getState('filter.url.alias');
+		if (strlen($filter_url_alias))
 		{
-			$this->setCondition('url.original', $filter_url_original);
+			$this->setCondition('url.alias', $filter_url_alias);
 		}
 		
 		$filter_ids = $this->getState('filter.ids');
@@ -69,8 +69,8 @@ class Routes extends \Dsc\Mongo\Collection
             $this->setError('Title is required');
         }
 
-        if (empty($this->{'url.original'})) {
-        	$this->setError('Original URL is required');
+        if (empty($this->{'url.alias'})) {
+        	$this->setError('Alias URL is required');
         }
 
         if (empty($this->{'url.redirect'})) {
@@ -78,11 +78,41 @@ class Routes extends \Dsc\Mongo\Collection
         }
         
         // is the original URL unique?
-        if ($this->collection()->count( array( 'url.original' => $this->{'url.original'} )) > 0 ) 
+        if ($this->collection()->count( array( 'url.alias' => $this->{'url.alias'} )) > 0 ) 
         {
 			$this->setError('Redirection for this route already exists.');
         }
 
         return parent::validate();
+    }
+    
+    public function beforeSave()
+    {
+    	$this->title = $this->inputFilter()->clean( $this->title, 'ALNUM' );
+    	if( isset( $this->url ) && is_array($this->url)){
+    		$this->url['alias'] = $this->inputFilter()->clean( $this->url['alias'], 'string' );
+    		$this->url['redirect'] = $this->inputFilter()->clean( $this->url['redirect'], 'string' );
+    	} else {
+    		$this->setError( 'Missing information about redirection' );
+    	}
+    	if( !isset($this->metadata) ){
+    		$this->metadata = array();
+    	}
+
+    	if (empty($this->metadata['creator'])) {
+    		$user = \Base::instance()->get('SESSION.auth-identity.admin');
+  			$this->metadata['creator'] = array(
+  					'id' => $user->id,
+   					'name' => $user->name
+   			);
+    		
+    	}
+    	
+    	if (empty($this->metadata['created'])) {
+    		$this->metadata['created'] = \Dsc\Mongo\Metastamp::getDate('now');
+    	}
+    	
+    	$this->metadata['last_modified'] = \Dsc\Mongo\Metastamp::getDate('now');
+    	return parent::beforeSave();
     }
 }

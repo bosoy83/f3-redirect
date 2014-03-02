@@ -22,14 +22,18 @@
             <!-- /.form-group -->
 
             <div class="form-group">
-                <input type="text" name="url[original]" placeholder="Original URL"
-                    class="form-control" />
+            	<div class="input-group">
+					<span class="input-group-addon">/</span>
+       			    <input type="text" name="url[alias]" placeholder="Alias URL" class="form-control" />
+	            </div>
             </div>
             <!-- /.form-group -->
 
             <div class="form-group">
-                <input type="text" name="url[redirect]" placeholder="New Redirection"
-                    class="form-control" />
+	            <div class="input-group">
+					<span class="input-group-addon">/</span>
+            			<input type="text" name="url[redirect]" placeholder="New Redirection" class="form-control" />
+            	</div>
             </div>
             <!-- /.form-group -->
             <hr />

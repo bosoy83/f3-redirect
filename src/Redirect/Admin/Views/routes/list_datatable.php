@@ -99,7 +99,7 @@
 	                </h5>
 	
 	                <a class="help-block" target="_blank" href="./<?php echo $item->{'url.redirect'}; ?>">
-	                /<?php echo $item->{'url.original'}; ?>
+	                /<?php echo $item->{'url.alias'}; ?>
 	                </a>
 	
 	            </td>

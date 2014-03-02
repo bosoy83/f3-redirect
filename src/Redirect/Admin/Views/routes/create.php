@@ -37,11 +37,11 @@
             <!-- /.form-group -->
 
             <div class="form-group clearfix">
-	            <label class="col-md-3">Original URL</label>
+	            <label class="col-md-3">Alias URL</label>
 	            <div class="col-md-7">
 	            	<div class="input-group">
 						<span class="input-group-addon">/</span>
-	            		<input type="text" name="url[original]" placeholder="Original URL" value="<?php echo $flash->old('url.original'); ?>" class="form-control" />
+	            		<input type="text" name="url[alias]" placeholder="Alias URL" value="<?php echo $flash->old('url.alias'); ?>" class="form-control" />
 					</div>
 				</div>
             </div>
