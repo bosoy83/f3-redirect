@@ -16,7 +16,7 @@
             data-refresh_list="true" data-list_container="routes">
 
             <div class="form-group">
-                <input type="text" name="metadata[title]" placeholder="Title"
+                <input type="text" name="title" placeholder="Title"
                     class="form-control" />
             </div>
             <!-- /.form-group -->

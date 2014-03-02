@@ -1,7 +1,7 @@
 <?php 
 namespace Redirect\Admin\Controllers;
 
-class Route extends \Admin\Controllers\Base
+class Route extends \Admin\Controllers\BaseAuth
 {
     use \Dsc\Traits\Controllers\CrudItem;
 

@@ -1,20 +1,36 @@
 <?php 
 namespace Redirect\Admin\Models;
 
-class Routes extends \Dsc\Models\Assets
+class Routes extends \Dsc\Mongo\Collection
 {
-	protected $type = 'redirect.routes';
-    protected $collection = 'redirect.routes';
-    protected $default_ordering_direction = '1';
-    protected $default_ordering_field = 'metadata.title';
-	    
-    protected function fetchFilters()
-    {
-        $this->filters = parent::fetchFilters();
-    
-        $this->filters['metadata.type'] = $this->type;
-        
-        return $this->filters;
-    }
+	protected $__collection_name= 'redirect.routes';
 	
+	// strict document format
+	public $_id;
+	public $title;
+	public $url = array(); // array having two elements -> original and redirect
+	
+	    
+    public function validate()
+    {
+        if (empty($this->title)) {
+            $this->setError('Title is required');
+        }
+
+        if (empty($this->{'url.original'})) {
+        	$this->setError('Original URL is required');
+        }
+
+        if (empty($this->{'url.redirect'})) {
+        	$this->setError('New Redirection is required');
+        }
+        
+        // is the original URL unique?
+        if ($this->collection()->count( array( 'original' => $this->{'url.original'} )) > 0 ) 
+        {
+			$this->setError('Redirection for this route already exists.');
+        }
+
+        return parent::validate();
+    }
 }

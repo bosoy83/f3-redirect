@@ -1,7 +1,7 @@
 <?php 
 namespace Redirect\Admin\Controllers;
 
-class Routes extends \Admin\Controllers\Base
+class Routes extends \Admin\Controllers\BaseAuth
 {
     protected function getModel()
     {
@@ -14,15 +14,12 @@ class Routes extends \Admin\Controllers\Base
         \Base::instance()->set('pagetitle', 'Routes');
         \Base::instance()->set('subtitle', '');
         
-        $model = new \Redirect\Admin\Models\Routes;
+        $model = $this->getModel();
         $state = $model->populateState()->setState('filter.type', true)->getState();
         \Base::instance()->set('state', $state );
-        
-        $list = $model->paginate();
-        \Base::instance()->set('list', $list );
-        
-        $pagination = new \Dsc\Pagination($list['total'], $list['limit']);       
-        \Base::instance()->set('pagination', $pagination );
+        \Base::instance()->set('pagination' ,$model->paginate() );
+        \Base::instance()->set('list', $model->getItems() );
+        print_r( $model->paginate() );
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/list.php');
     }    
@@ -35,12 +32,9 @@ class Routes extends \Admin\Controllers\Base
         $state = $model->populateState()->getState();
         \Base::instance()->set('state', $state );
         
-        $list = $model->paginate();
-        \Base::instance()->set('list', $list );
+        \Base::instance()->set('pagination', $model->paginate() );
+        \Base::instance()->set('list', $model->getItems() );
         
-        $pagination = new \Dsc\Pagination($list['total'], $list['limit']);
-        \Base::instance()->set('pagination', $pagination );
-    
         $html = \Dsc\System::instance()->get('theme')->renderLayout('Redirect/Admin/Views::routes/list_datatable.php');
         
         return $this->outputJson( $this->getJsonResponse( array(
