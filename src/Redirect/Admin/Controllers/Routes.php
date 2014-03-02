@@ -18,8 +18,6 @@ class Routes extends \Admin\Controllers\BaseAuth
         $state = $model->populateState()->setState('filter.type', true)->getState();
         \Base::instance()->set('state', $state );
         \Base::instance()->set('pagination' ,$model->paginate() );
-        \Base::instance()->set('list', $model->getItems() );
-        print_r( $model->paginate() );
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/list.php');
     }    

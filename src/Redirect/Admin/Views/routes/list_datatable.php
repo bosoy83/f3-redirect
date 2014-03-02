@@ -1,14 +1,14 @@
 <div class="row datatable-header">
     <div class="col-sm-6">
         <div class="row row-marginless">
-            <?php if (!empty($list['subset'])) { ?>
+            <?php if ($pagination->total_items > 0 ) { ?>
             <div class="col-sm-4">
                 <?php echo $pagination->getLimitBox( $state->get('list.limit') ); ?>
             </div>
             <?php } ?>
-            <?php if (!empty($list['count']) && $list['count'] > 1) { ?>
+            <?php if ( $pagination->total_items > 1) { ?>
             <div class="col-sm-8">
-                <?php echo (!empty($list['count']) && $list['count'] > 1) ? $pagination->serve() : null; ?>
+                <?php echo ( $pagination->total_items > 1) ? $pagination->serve() : null; ?>
             </div>
             <?php } ?>
         </div>
@@ -53,9 +53,9 @@
 	</thead>
 	<tbody>    
 
-    <?php if (!empty($list['subset'])) { ?>
+    <?php if ( $pagination->total_items > 0) { ?>
 
-    <?php foreach ($list['subset'] as $item) { ?>
+    <?php foreach ($pagination->items as $item) { ?>
         <tr>
             <td class="checkbox-column">
                 <input type="checkbox" class="icheck-input" name="ids[]" value="<?php echo $item->_id; ?>">
@@ -64,7 +64,7 @@
             <td class="">
                 <h5>
                 <a href="./admin/redirect/route/edit/<?php echo $item->id; ?>">
-                <?php echo $item->{'metadata.title'}; ?>
+                <?php echo $item->{'title'}; ?>
                 </a>
                 </h5>
 
@@ -109,9 +109,9 @@
 </div>
 
 <div class="row datatable-footer">
-    <?php if (!empty($list['count']) && $list['count'] > 1) { ?>
+    <?php if ($pagination->total_items > 1) { ?>
     <div class="col-sm-10">
-        <?php echo (!empty($list['count']) && $list['count'] > 1) ? $pagination->serve() : null; ?>
+        <?php echo ( $pagination->total_items > 1) ? $pagination->serve() : null; ?>
     </div>
     <?php } ?>
     <div class="col-sm-2 pull-right">
