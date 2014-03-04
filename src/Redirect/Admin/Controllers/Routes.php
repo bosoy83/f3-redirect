@@ -3,7 +3,11 @@ namespace Redirect\Admin\Controllers;
 
 class Routes extends \Admin\Controllers\BaseAuth
 {
-    protected function getModel()
+     protected $list_route = '/admin/redirect/routes';
+	
+     use \Dsc\Traits\Controllers\AdminList;
+	
+	protected function getModel()
     {
         $model = new \Redirect\Admin\Models\Routes;
         return $model;
