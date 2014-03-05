@@ -27,12 +27,6 @@ class Routes extends \Dsc\Routes\Group{
 		);
 		
 		$this->addSettingsRoutes();
-		$this->add( '/routes', 'GET', array(
-										'controller' => 'Routes',
-										'action' => 'getDatatable',
-										'ajax' => 'true'
-										));
-		$this->addCrudList( 'Routes' );
-		$this->addCrudItem( 'Route' );
+		$this->addCrudGroup( 'Routes', 'Route', array('datatable_links' => true));
 	}
 }
