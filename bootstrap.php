@@ -1,10 +1,78 @@
 <?php 
+abstract class BaseBootstrap{
+
+	protected $namespace = '';
+	
+	public function command( $name, $app ){
+		$app = ucwords($app);
+		if( method_exists( $this, $name.$app ) ){
+			$func = $name.$app;
+			$this->$func();
+		} else if( method_exists( $this, $name ) ){
+			$this->$name( $app );
+		}
+	}
+	
+	protected function run($app){
+		// handle other types of application, if no specific function defined
+	}
+	
+	protected function runAdmin(){
+		$listener = "\\".$this->namespace."\\Listener";
+		$router = "\\".$this->namespace."\\Routes";
+		if( !class_exists($router)){
+			$router = "\\".$this->namespace."\\Admin\\Routes";
+			if( !class_exists($router)){
+				$router = '';
+			}
+		}
+		
+		if( class_exists( $listener ) ){
+			// register event listener
+			\Dsc\System::instance()->getDispatcher()->addListener($listener::instance());
+		}
+		
+		if( strlen( $router ) ) {
+			// register all the routes
+			\Dsc\System::instance()->get('router')->mount( new $router, $this->namespace );
+		}
+		
+		// append this app's UI folder to the path
+		// new way
+		\Dsc\System::instance()->get('theme')->registerViewPath( __dir__ . '/src/'.$this->namespace.'/Admin/Views/', $this->namespace.'/Admin/Views' );
+	}
+	
+	protected function preRun($app){
+		// handle other types of application, if no specific function defined
+	}
+	
+	protected function preRunAdmin(){
+	}
+	
+	protected function postRun($app){
+		// handle other types of application, if no specific function defined
+	}
+	
+	protected function postRunAdmin(){
+	}
+}
+
+
+class RedirectBootstrap extends BaseBootstrap{
+	protected $namespace = 'Redirect';
+}
+
 $f3 = \Base::instance();
 $global_app_name = $f3->get('APP_NAME');
 
 switch ($global_app_name) 
 {
     case "admin":
+    	$test = new RedirectBootstrap();
+    	$test->command( "pre",  $global_app_name);
+    	$test->command( "run",  $global_app_name);
+    	$test->command( "post",  $global_app_name);
+/*    	
         // register event listener
         \Dsc\System::instance()->getDispatcher()->addListener(\Redirect\Listener::instance());
 
@@ -16,7 +84,7 @@ switch ($global_app_name)
         \Dsc\System::instance()->get('theme')->registerViewPath( __dir__ . '/src/Redirect/Admin/Views/', 'Redirect/Admin/Views' );
         
         // TODO set some app-specific settings, if desired
-                
+*/                
         break;
     case "site":        
 		$f3->set('ONERROR',
