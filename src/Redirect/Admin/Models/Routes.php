@@ -1,7 +1,7 @@
 <?php 
 namespace Redirect\Admin\Models;
 
-class Routes extends \Dsc\Mongo\Collection
+class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models\MassUpdateOperations
 {
 	protected $__collection_name= 'redirect.routes';
 	protected $__config = array(
@@ -118,5 +118,19 @@ class Routes extends \Dsc\Mongo\Collection
     	$this->metadata['last_modified'] = \Dsc\Mongo\Metastamp::getDate('now');
 
     	return parent::beforeSave();
+    }
+
+    /**
+     * This method gets list of UpdateOperation groups
+     */
+    public function getUpdateOperationGroups(){
+    	$arr = array();
+
+    	$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
+    	$attr_title->setAttribute('metadata.title')
+    				->addOperation( new \MassUpdate\Operations\Update\AppendTo );
+    	
+    	$arr []= $attr_title;
+    	return $arr;
     }
 }
