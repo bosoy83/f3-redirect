@@ -15,7 +15,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
 	public $title;
 	public $url = array(); // array having two elements -> original and redirect
 	
-	use \Massupdate\Service\Traits\Model;
+	use \MassUpdate\Service\Traits\Model;
 	
 	protected function fetchConditions()
 	{
