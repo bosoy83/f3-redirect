@@ -124,34 +124,40 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
 
     /**
      * This method gets list of attribute groups with operations
+     * 
+     * @return	Array with attribute groups
      */
     public function getMassUpdateOperationGroups(){
-    	$arr = array();
+    	static $arr = null;
 
-    	$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
-    	$attr_title->setAttributeCollection('title')
-    				->setAttributeTitle( "Title" )
-    				->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
-    				->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
-    				->addOperation( new \MassUpdate\Operations\Condition\CompareTo, 'where' )
-    				->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'title' ) )
-    				->addOperation( new \MassUpdate\Operations\Condition\EqualsTo, 'where' );
-    	 
-    	$attr_route = new \MassUpdate\Service\Models\AttributeGroup;
-    	$attr_route->setAttributeCollection('url.redirect')
-			    	->setAttributeTitle( "Redirection" )
-			    	->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
-    				->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
-    				->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'filter1' ) );
-    	 
-    	$attr_empty = new \MassUpdate\Service\Models\AttributeGroup;
-    	$attr_empty->setAttributeCollection('url.alias')
-			    	->setAttributeTitle( "Alias" )
-			    	->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where' );
-    	 
-    	$arr []= $attr_title;
-    	$arr []= $attr_empty;
-    	$arr []= $attr_route;
+    	if( $arr == null ){
+    		$arr = array();
+
+    		$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
+    		$attr_title->setAttributeCollection('title')
+    		->setAttributeTitle( "Title" )
+    		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
+    		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
+    		->addOperation( new \MassUpdate\Operations\Condition\CompareTo, 'where' )
+    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'title' ) )
+    		->addOperation( new \MassUpdate\Operations\Condition\EqualsTo, 'where' );
+    		
+    		$attr_route = new \MassUpdate\Service\Models\AttributeGroup;
+    		$attr_route->setAttributeCollection('url.redirect')
+    		->setAttributeTitle( "Redirection" )
+    		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
+    		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
+    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'filter1' ) );
+    		
+    		$attr_empty = new \MassUpdate\Service\Models\AttributeGroup;
+    		$attr_empty->setAttributeCollection('url.alias')
+    		->setAttributeTitle( "Alias" )
+    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where' );
+    		
+    		$arr []= $attr_title;
+    		$arr []= $attr_empty;
+    		$arr []= $attr_route;
+    	}
     	return $arr;
     }
 }
