@@ -43,7 +43,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
 		$filter_title = $this->getState('filter.title');
 		if (strlen($filter_title))
 		{
-			$this->setCondition('title', $filter_title);
+			$this->setCondition('title', new \MongoRegex('/'. $filter_title .'/i'));
 		}
 		
 		$filter_url_alias = $this->getState('filter.url.alias');
@@ -123,16 +123,35 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     }
 
     /**
-     * This method gets list of UpdateOperation groups
+     * This method gets list of attribute groups with operations
      */
-    public function getUpdateOperationGroups(){
+    public function getMassUpdateOperationGroups(){
     	$arr = array();
 
     	$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
-    	$attr_title->setAttribute('metadata.title')
-    				->addOperation( new \MassUpdate\Operations\Update\AppendTo );
-    	
+    	$attr_title->setAttributeCollection('title')
+    				->setAttributeTitle( "Title" )
+    				->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
+    				->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
+    				->addOperation( new \MassUpdate\Operations\Condition\CompareTo, 'where' )
+    				->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'title' ) )
+    				->addOperation( new \MassUpdate\Operations\Condition\EqualsTo, 'where' );
+    	 
+    	$attr_route = new \MassUpdate\Service\Models\AttributeGroup;
+    	$attr_route->setAttributeCollection('url.redirect')
+			    	->setAttributeTitle( "Redirection" )
+			    	->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
+    				->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
+    				->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'filter1' ) );
+    	 
+    	$attr_empty = new \MassUpdate\Service\Models\AttributeGroup;
+    	$attr_empty->setAttributeCollection('url.alias')
+			    	->setAttributeTitle( "Alias" )
+			    	->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where' );
+    	 
     	$arr []= $attr_title;
+    	$arr []= $attr_empty;
+    	$arr []= $attr_route;
     	return $arr;
     }
 }

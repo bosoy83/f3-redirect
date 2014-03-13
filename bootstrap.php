@@ -9,7 +9,7 @@ class RedirectBootstrap extends \Dsc\BaseBootstrap{
 		try{
 			$service = \Dsc\System::instance()->get('massupdate');
 			if( !empty( $service ) ){
-				$service->regiseterGroup( new \Redirect\MassUpdateGroup );
+				$service->registerGroup( new \Redirect\MassUpdateGroup );
 			}
 		} catch( \Exception $e){}
 	}

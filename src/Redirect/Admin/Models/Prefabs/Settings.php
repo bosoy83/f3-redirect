@@ -1,5 +1,5 @@
 <?php 
-namespace Redirect\Prefabs;
+namespace Redirect\Admin\Models\Prefabs;
 
 class Settings extends \Dsc\Prefabs
 {

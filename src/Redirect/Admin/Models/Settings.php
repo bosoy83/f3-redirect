@@ -7,7 +7,7 @@ class Settings extends \Dsc\Models\Settings
     
     public function prefab( $source=array(), $options=array() )
     {
-        $prefab = new \Redirect\Prefabs\Settings($source, $options);
+        $prefab = new \Redirect\Admin\Models\Prefabs\Settings($source, $options);
     
         return $prefab;
     }
