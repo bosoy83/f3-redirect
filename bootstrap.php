@@ -1,6 +1,6 @@
 <?php 
 
-class RedirectBootstrap extends \Dsc\BaseBootstrap{
+class RedirectBootstrap extends \Dsc\Bootstrap{
 	protected $dir = __DIR__;
 	protected $namespace = 'Redirect';
 
