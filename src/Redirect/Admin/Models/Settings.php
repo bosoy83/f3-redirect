@@ -1,7 +1,7 @@
 <?php 
 namespace Redirect\Admin\Models;
 
-class Settings extends \Dsc\Models\Settings 
+class Settings extends \Dsc\Mongo\Collections\Settings
 {
     protected $type = 'redirect.settings';
     
