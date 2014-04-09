@@ -136,6 +136,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     		$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
     		$attr_title->setAttributeCollection('title')
     		->setAttributeTitle( "Title" )
+    		->setModel( $this )
     		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
     		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
     		->addOperation( new \MassUpdate\Operations\Condition\CompareTo, 'where' )
@@ -145,6 +146,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     		$attr_route = new \MassUpdate\Service\Models\AttributeGroup;
     		$attr_route->setAttributeCollection('url.redirect')
     		->setAttributeTitle( "Redirection" )
+    		->setModel( $this )
     		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
     		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
     		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'filter1' ) );
@@ -152,6 +154,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     		$attr_empty = new \MassUpdate\Service\Models\AttributeGroup;
     		$attr_empty->setAttributeCollection('url.alias')
     		->setAttributeTitle( "Alias" )
+    		->setModel( $this )
     		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where' );
     		
     		$arr []= $attr_title;
