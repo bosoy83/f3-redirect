@@ -63,7 +63,11 @@ class RedirectBootstrap extends \Dsc\Bootstrap
                 // don't redirect if the path and redirect are the same to prevent recursion
                 if (!empty( $redirect ) && $path != $redirect)
                 {
-                    $f3->reroute( '/' . $redirect );
+                    // if the string doesn't begin with /, make sure it does
+                    if (strpos($redirect, '/') !== 0) {
+                        $redirect = '/' . $redirect;
+                    }                    
+                    $f3->reroute( $redirect );
                 }
                 else
                 { 
@@ -72,7 +76,12 @@ class RedirectBootstrap extends \Dsc\Bootstrap
                     $default_redirect = $settings->{'general.default_error_404'};
                     if (!empty($default_redirect) && $path != $default_redirect)
                     {
-                        $f3->reroute( '/' . $default_redirect );
+                        // if the string doesn't begin with /, make sure it does
+                        if (strpos($default_redirect, '/') !== 0) {
+                            $default_redirect = '/' . $default_redirect;
+                        }
+                        
+                        $f3->reroute( $default_redirect );
                     }
                     else
                     {
