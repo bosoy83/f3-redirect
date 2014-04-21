@@ -1,3 +1,4 @@
+<div class="well">
 <div class="portlet">
 
     <div class="portlet-header">
@@ -38,7 +39,7 @@
             <!-- /.form-group -->
             <hr />
 
-            <div class="form-actions">
+            <div class="clearfix">
 
                 <div>
                     <button type="submit" class="btn btn-primary">Create</button>
@@ -53,3 +54,4 @@
 
 </div>
 <!-- /.portlet -->
+</div>
