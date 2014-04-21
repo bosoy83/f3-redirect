@@ -10,10 +10,18 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
 			),
 	);
 	
-	// strict document format
-	public $_id;
 	public $title;
-	public $url = array(); // array having two elements -> original and redirect
+	public $url = array(
+		'alias' => null,
+	    'redirect' => null
+	);
+	public $hits;          // number of times this route has been hit
+	public $last_hit;      // \Dsc\Mongo\Metastamp.  the last time this route was hit
+	public $metadata = array(
+	    'creator'=>null,
+	    'created'=>null,
+	    'last_modified'=>null
+	);	
 	
 	use \MassUpdate\Service\Traits\Model;
 	
@@ -68,15 +76,11 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     public function validate()
     {
         if (empty($this->title)) {
-            $this->setError('Title is required');
+            $this->title = $this->{'url.alias'};
         }
 
         if (empty($this->{'url.alias'})) {
         	$this->setError('Alias URL is required');
-        }
-
-        if (empty($this->{'url.redirect'})) {
-        	$this->setError('New Redirection is required');
         }
         
         // is the original URL unique?
@@ -93,31 +97,38 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     
     public function beforeSave()
     {
-    	$this->title = $this->inputFilter()->clean( $this->title, 'ALNUM' );
     	if( isset( $this->url ) && is_array($this->url)){
     		$this->url['alias'] = $this->inputFilter()->clean( $this->url['alias'], 'string' );
     		$this->url['redirect'] = $this->inputFilter()->clean( $this->url['redirect'], 'string' );
     	} else {
     		$this->setError( 'Missing information about redirection' );
     	}
-    	if( !isset($this->metadata) ){
-    		$this->metadata = array();
-    	}
-
-    	if (empty($this->metadata['creator'])) {
-    		$user = \Base::instance()->get('SESSION.auth-identity.admin');
-  			$this->metadata['creator'] = array(
-  					'id' => $user->id,
-   					'name' => $user->name
-   			);
-    		
+    	
+    	if (!$this->get('metadata.creator'))
+    	{
+    	    $identity = \Dsc\System::instance()->get('auth')->getIdentity();
+    	    if (!empty($identity->id))
+    	    {
+    	        $this->set('metadata.creator', array(
+    	            'id' => $identity->id,
+    	            'name' => $identity->getName()
+    	        ));
+    	    }
+    	    else
+    	    {
+    	        $this->set('metadata.creator', array(
+    	            'id' => \Base::instance()->get('safemode.id'),
+    	            'name' => \Base::instance()->get('safemode.username')
+    	        ));
+    	    }
     	}
     	
-    	if (empty($this->metadata['created'])) {
-    		$this->metadata['created'] = \Dsc\Mongo\Metastamp::getDate('now');
-    	}
-    	
-    	$this->metadata['last_modified'] = \Dsc\Mongo\Metastamp::getDate('now');
+        if (!$this->get('metadata.created'))
+        {
+        	$this->set('metadata.created', \Dsc\Mongo\Metastamp::getDate('now') );
+        }
+        
+        $this->set('metadata.last_modified', \Dsc\Mongo\Metastamp::getDate('now') );
 
     	return parent::beforeSave();
     }
