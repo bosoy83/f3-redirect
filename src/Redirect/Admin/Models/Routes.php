@@ -111,7 +111,7 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
     	    {
     	        $this->set('metadata.creator', array(
     	            'id' => $identity->id,
-    	            'name' => $identity->getName()
+    	            'name' => $identity->fullName()
     	        ));
     	    }
     	    else
