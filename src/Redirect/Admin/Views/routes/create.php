@@ -21,7 +21,7 @@
                         </ul>
                     </div>                          
                     &nbsp;
-                    <a class="btn btn-default" href="./admin/redirect/routes">Cancel</a>
+                    <a class="btn btn-default" href="/admin/redirect/routes">Cancel</a>
                 </div>
 
             </div>

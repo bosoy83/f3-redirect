@@ -11,7 +11,7 @@
     <div class="portlet-content">
         <div id="quick-form-response-container"></div>
 
-        <form id="quick-form" action="./admin/redirect/route/create"
+        <form id="quick-form" action="/admin/redirect/route/create"
             class="form dsc-ajax-form" method="post"
             data-message_container="quick-form-response-container"
             data-refresh_list="true" data-list_container="routes">

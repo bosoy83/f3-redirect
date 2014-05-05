@@ -37,7 +37,7 @@
                     <div class="input-group">
                         <select id="bulk-actions" name="bulk_action" class="form-control">
                             <option value="null">-Bulk Actions-</option>
-                            <option value="delete" data-action="./admin/redirect/routes/delete">Delete</option>
+                            <option value="delete" data-action="/admin/redirect/routes/delete">Delete</option>
                         </select>
                         <span class="input-group-btn">
                             <button class="btn btn-default bulk-actions" type="button" data-target="bulk-actions">Apply</button>
@@ -93,12 +93,12 @@
 	            
 	            <td class="">
 	                <h5>
-	                <a href="./admin/redirect/route/edit/<?php echo $item->_id; ?>">
+	                <a href="/admin/redirect/route/edit/<?php echo $item->_id; ?>">
 	                <?php echo $item->{'title'}; ?>
 	                </a>
 	                </h5>
 	
-	                <a class="help-block" target="_blank" href="./<?php echo $item->{'url.redirect'}; ?>">
+	                <a class="help-block" target="_blank" href="/<?php echo $item->{'url.redirect'}; ?>">
 	                /<?php echo $item->{'url.alias'}; ?>
 	                </a>
 	
@@ -114,11 +114,11 @@
 	            </td>
 	                
 	            <td class="text-center">
-	                <a class="btn btn-xs btn-secondary" href="./admin/redirect/route/edit/<?php echo $item->_id; ?>">
+	                <a class="btn btn-xs btn-secondary" href="/admin/redirect/route/edit/<?php echo $item->_id; ?>">
 	                    <i class="fa fa-pencil"></i>
 	                </a>
 	                &nbsp;
-	                <a class="btn btn-xs btn-danger" data-bootbox="confirm" href="./admin/redirect/route/delete/<?php echo $item->_id; ?>">
+	                <a class="btn btn-xs btn-danger" data-bootbox="confirm" href="/admin/redirect/route/delete/<?php echo $item->_id; ?>">
 	                    <i class="fa fa-times"></i>
 	                </a>
 	            </td>
