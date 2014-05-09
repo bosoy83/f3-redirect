@@ -5,19 +5,28 @@ class Listener extends \Prefab
 {
     public function onSystemRebuildMenu( $event )
     {
-        if ($mapper = $event->getArgument('mapper')) 
+        if ($model = $event->getArgument('model')) 
         {
-            $mapper->reset();
-            $mapper->priority = 40;
-            $mapper->id = 'f3-redirect';
-            $mapper->title = 'Redirects';
-            $mapper->route = '';
-            $mapper->icon = 'fa fa-external-link';
-            $mapper->children = array(
-                    json_decode(json_encode(array( 'title'=>'List', 'route'=>'/admin/redirect/routes', 'icon'=>'fa fa-list' )))
-                    ,json_decode(json_encode(array( 'title'=>'Settings', 'route'=>'/admin/redirect/settings', 'icon'=>'fa fa-cogs' )))
+        	$root = $event->getArgument( 'root' );
+        	$redirect = clone $model;
+
+        	$redirect->insert(
+        			array(
+        					'type'	=> 'admin.nav',
+        					'priority' => 90,
+        					'title'	=> 'Redirects',
+        					'icon'	=> 'fa fa-external-link',
+        					'is_root' => false,
+        					'tree'	=> $root,
+							'base' => '/admin/redirect/',
+        			)
+        	);
+        	
+            $children = array(
+                    array( 'title'=>'List', 'route'=>'/admin/redirect/routes', 'icon'=>'fa fa-list' ),
+                    array( 'title'=>'Settings', 'route'=>'/admin/redirect/settings', 'icon'=>'fa fa-cogs' ),
             );
-            $mapper->save();
+           	$redirect->addChildrenItems( $children, $root, $model );
             
             \Dsc\System::instance()->addMessage('Routes Manager added its admin menu items.');
         }
