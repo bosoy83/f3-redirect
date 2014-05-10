@@ -26,7 +26,7 @@ class Listener extends \Prefab
                     array( 'title'=>'List', 'route'=>'/admin/redirect/routes', 'icon'=>'fa fa-list' ),
                     array( 'title'=>'Settings', 'route'=>'/admin/redirect/settings', 'icon'=>'fa fa-cogs' ),
             );
-           	$redirect->addChildrenItems( $children, $root, $model );
+           	$redirect->addChildrenItems( $children, $root );
             
             \Dsc\System::instance()->addMessage('Routes Manager added its admin menu items.');
         }
