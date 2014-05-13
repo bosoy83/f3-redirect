@@ -1,7 +1,7 @@
 <?php 
 namespace Redirect\Admin\Models;
 
-class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models\MassUpdateOperations
+class Routes extends \Dsc\Mongo\Collection
 {
 	protected $__collection_name= 'redirect.routes';
 	protected $__config = array(
@@ -22,8 +22,6 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
 	    'created'=>null,
 	    'last_modified'=>null
 	);	
-	
-	use \MassUpdate\Service\Traits\Model;
 	
 	protected function fetchConditions()
 	{
@@ -131,47 +129,5 @@ class Routes extends \Dsc\Mongo\Collection implements \MassUpdate\Service\Models
         $this->set('metadata.last_modified', \Dsc\Mongo\Metastamp::getDate('now') );
 
     	return parent::beforeSave();
-    }
-
-    /**
-     * This method gets list of attribute groups with operations
-     * 
-     * @return	Array with attribute groups
-     */
-    public function getMassUpdateOperationGroups(){
-    	static $arr = null;
-
-    	if( $arr == null ){
-    		$arr = array();
-
-    		$attr_title = new \MassUpdate\Service\Models\AttributeGroup;
-    		$attr_title->setAttributeCollection('title')
-    		->setAttributeTitle( "Title" )
-    		->setModel( $this )
-    		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
-    		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
-    		->addOperation( new \MassUpdate\Operations\Condition\CompareTo, 'where' )
-    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'title' ) )
-    		->addOperation( new \MassUpdate\Operations\Condition\EqualsTo, 'where' );
-    		
-    		$attr_route = new \MassUpdate\Service\Models\AttributeGroup;
-    		$attr_route->setAttributeCollection('url.redirect')
-    		->setAttributeTitle( "Redirection" )
-    		->setModel( $this )
-    		->addOperation( new \MassUpdate\Operations\Update\ChangeTo, 'update' )
-    		->addOperation( new \MassUpdate\Operations\Update\IncreaseBy, 'update' )
-    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where', array( "filter" => 'filter1' ) );
-    		
-    		$attr_empty = new \MassUpdate\Service\Models\AttributeGroup;
-    		$attr_empty->setAttributeCollection('url.alias')
-    		->setAttributeTitle( "Alias" )
-    		->setModel( $this )
-    		->addOperation( new \MassUpdate\Operations\Condition\Contains, 'where' );
-    		
-    		$arr []= $attr_title;
-    		$arr []= $attr_empty;
-    		$arr []= $attr_route;
-    	}
-    	return $arr;
     }
 }

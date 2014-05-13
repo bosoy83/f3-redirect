@@ -4,24 +4,6 @@ class RedirectBootstrap extends \Dsc\Bootstrap
     protected $dir = __DIR__;
     protected $namespace = 'Redirect';
 
-    protected function runAdmin()
-    {
-        parent::runAdmin();
-        try
-        {
-            $service = \Dsc\System::instance()->get( 'massupdate' );
-            if (! empty( $service ))
-            {
-            	$group = new \Redirect\MassUpdateGroup();
-            	$group->setName( $this->namespace );
-            	$service->registerGroup( $group );
-            }
-        }
-        catch ( \Exception $e )
-        {
-        }
-    }
-
     protected function runSite()
     {
         $f3 = \Base::instance();
