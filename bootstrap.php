@@ -4,6 +4,12 @@ class RedirectBootstrap extends \Dsc\Bootstrap
     protected $dir = __DIR__;
     protected $namespace = 'Redirect';
 
+    protected function preAdmin(){
+    	parent::preAdmin();
+    	 
+    	\Dsc\Apps::registerPath( $this->dir . "/src/Redirect/MassUpdate", 'massupdate' );
+    }
+    
     protected function runSite()
     {
         $f3 = \Base::instance();
