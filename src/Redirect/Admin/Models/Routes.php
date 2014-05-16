@@ -9,7 +9,7 @@ class Routes extends \Dsc\Mongo\Collections\Nodes
 
     protected $__config = array(
         'default_sort' => array(
-            'metadata.last_modified.time' => -1
+            'last_hit.time' => -1
         )
     );
 
