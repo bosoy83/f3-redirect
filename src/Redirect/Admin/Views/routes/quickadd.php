@@ -25,7 +25,7 @@
             <div class="form-group">
             	<div class="input-group">
 					<span class="input-group-addon">/</span>
-       			    <input type="text" name="url[alias]" placeholder="Alias URL" class="form-control" />
+       			    <input type="text" name="url[alias]" placeholder="Alias/404-Error URL" class="form-control" />
 	            </div>
             </div>
             <!-- /.form-group -->
@@ -33,7 +33,7 @@
             <div class="form-group">
 	            <div class="input-group">
 					<span class="input-group-addon">/</span>
-            			<input type="text" name="url[redirect]" placeholder="New Redirection" class="form-control" />
+            			<input type="text" name="url[redirect]" placeholder="Target Redirect URL" class="form-control" />
             	</div>
             </div>
             <!-- /.form-group -->

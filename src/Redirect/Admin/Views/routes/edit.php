@@ -44,17 +44,19 @@
 						<span class="input-group-addon">/</span>
 	            		<input type="text" name="url[alias]" placeholder="Alias URL" value="<?php echo $flash->old('url.alias'); ?>" class="form-control" />
 	            	</div>
+	            	<p class="help-block">This is the URL the user will enter into the browser.  In the case of 404 errors being logged, this is the URL that the user attempted to load.</p>
 				</div>
             </div>
             <!-- /.form-group -->
 
             <div class="form-group clearfix">
-	            <label class="col-md-3">New Redirection</label>
+	            <label class="col-md-3">Final URL</label>
 	            <div class="col-md-7">
 	            	<div class="input-group">
 						<span class="input-group-addon">/</span>
 	            		<input type="text" name="url[redirect]" placeholder="New Redirection" value="<?php echo $flash->old('url.redirect'); ?>" class="form-control" />
 	            	</div>
+	            	<p class="help-block">This is where the Alias URL will ultimately redirect to.  It is the redirection target.</p> 
 				</div>
             </div>
             <!-- /.form-group -->
