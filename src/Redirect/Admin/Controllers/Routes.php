@@ -15,9 +15,6 @@ class Routes extends \Admin\Controllers\BaseAuth
 	
 	public function index()
     {
-        \Base::instance()->set('pagetitle', 'Routes');
-        \Base::instance()->set('subtitle', '');
-        
         $model = $this->getModel();
         $model->populateState();
         $state = $model->setState('filter.type', true)->getState();
@@ -25,7 +22,9 @@ class Routes extends \Admin\Controllers\BaseAuth
         $model->setParam( 'limit', $model->getState('list.limit', 0) );
         \Base::instance()->set('state', $state );
 		\Base::instance()->set( 'paginated', $model->paginate() );
-        
+
+		$this->app->set('meta.title', 'Redirects');
+		
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/list.php');
     }    
 

@@ -37,7 +37,8 @@ class Route extends \Admin\Controllers\BaseAuth
     protected function displayCreate() 
     {
         $f3 = \Base::instance();
-        $f3->set('pagetitle', 'Create New Route');
+
+        $this->app->set('meta.title', 'Create Redirect');
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/create.php');
     }
@@ -45,7 +46,8 @@ class Route extends \Admin\Controllers\BaseAuth
     protected function displayEdit()
     {
         $f3 = \Base::instance();
-        $f3->set('pagetitle', 'Edit Route');
+        
+        $this->app->set('meta.title', 'Edit Redirect');
         
         echo \Dsc\System::instance()->get('theme')->render('Redirect/Admin/Views::routes/edit.php');
     }
