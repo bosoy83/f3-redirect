@@ -24,12 +24,12 @@ class Listener extends \Prefab
             $children = array(
                 array(
                     'title' => 'List',
-                    'route' => '/admin/redirect/routes',
+                    'route' => './admin/redirect/routes',
                     'icon' => 'fa fa-list'
                 ),
                 array(
                     'title' => 'Settings',
-                    'route' => '/admin/redirect/settings',
+                    'route' => './admin/redirect/settings',
                     'icon' => 'fa fa-cogs'
                 )
             );
