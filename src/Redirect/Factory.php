@@ -19,11 +19,10 @@ class Factory extends \Dsc\Singleton
             
             // lets find a proper redirection, if exists
             $path = substr($model->inputFilter()->clean($f3->hive()['PATH'], 'string'), 1);
-            
             $redirect = null;
             if ($route = $model->setState('filter.url.alias', $path)->getItem())
             {
-                // count the number of times a redirect is hit and track the date of the last hit
+            	// count the number of times a redirect is hit and track the date of the last hit
                 $route->hits = (int) $route->hits + 1;
                 $route->last_hit = \Dsc\Mongo\Metastamp::getDate('now');
                 $route->save();
@@ -87,7 +86,6 @@ class Factory extends \Dsc\Singleton
             // let f3 default error handler handle all other error types
             $response->action = false;
         }
-        
         return $response;
     }
 }
