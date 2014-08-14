@@ -33,46 +33,6 @@ class Importer extends \Admin\Controllers\BaseAuth
     }
 
     /**
-     * Target for the throttled importer loop
-     * 
-     */
-    public function handleImport()
-    {
-        $app = \Base::instance();
-        $records = $app->get("PARAMS.records");
-        $file_id = new \MongoId();
-        
-        $model = new \Redirect\Models\Plates();
-        $db = $model->getDb();
-        $id = new \MongoId($this->inputfilter()->clean($app->get("SESSION.redirect.import"), 'alnum'));
-        $item = $db->selectCollection('common.assets.files')->findOne(array(
-            "_id" => $id
-        ));
-        
-        $length = $item['length'];
-        $chunkSize = $item["chunkSize"];
-        $chunks = ceil($length / $chunkSize);
-        $collChunks = $model->getDb()->{'common.assets.chunks'};
-        
-        $buffer = null;
-        
-        for ($i = 0; $i < $chunks; $i++)
-        {
-            $chunk = $collChunks->findOne(array(
-                "files_id" => $id,
-                "n" => $i
-            ));
-            $buffer .= (string) $chunk["data"]->bin;
-        }
-        
-        $file_csv = new \SplFileObject("php://temp", "rw");
-        $file_csv->fwrite($buffer);
-        
-        $this->app->set('message', $buffer);
-        echo $this->theme->render('SystemTheme\Views::message.php');
-    }
-
-    /**
      * Preview the data in an uploaded file
      * 
      * @throws \Exception
@@ -279,87 +239,6 @@ class Importer extends \Admin\Controllers\BaseAuth
             $this->app->set('message', $message);
             
             echo $this->theme->render('Redirect/Admin/Views::importer/routes_results.php');
-            
-        } 
-        catch ( \Exception $e ) 
-        {
-            \Dsc\System::addMessage( $e->getMessage(), 'error');
-            $this->app->reroute('/admin/redirect/import');
-            return;
-        }
-    }
-    
-    /**
-     * Import Tags from a specified Asset ID
-     * 
-     * @throws \Exception
-     */
-    public function tags()
-    {
-        $message = null;
-        
-        try 
-        {
-            $id = $this->inputfilter->clean( $this->app->get('PARAMS.id'), 'alnum' );
-            $item = (new \Dsc\Mongo\Collections\Assets)->setState('filter.id', $id)->getItem();
-            if (empty($item->id)) {
-                throw new \Exception('Invalid Item');    	
-            }
-            
-            $file = new \SplTempFileObject();
-            $file->fwrite(file_get_contents( \Dsc\Url::base() . 'asset/' . $item->slug ));
-            $reader = new \Ddeboer\DataImport\Reader\CsvReader($file, ",");
-            $reader->setHeaderRowNumber(0);
-            $reader->setColumnHeaders(array(0,1));
-            
-            $this->app->set('item', $item);
-            $this->app->set('count', count($reader));
-            
-            $skipped = 0;
-            $updated = 0;
-            $not_found = array();                        
-            foreach ($reader as $row)
-            {
-                if (empty($row[0])) {
-                    $skipped++;
-                	continue;
-                }
-                
-                // TODO Attempt to find the asset SLUG that matches the path from $row[0]
-                $asset = new \Dsc\Mongo\Collections\Assets;
-                
-                /*
-                $asset = \Dsc\Mongo\Collections\Assets::findOne(array(
-                    'photo_credit' => $row['Photo Credit'],
-                    'source_url' => $row['Main Image'],
-                ));
-                */
-                
-                if (!empty($asset->id))
-                {
-                    // If found, $addToSet the tags from the CSV
-                    
-                    // the main image has already been uploaded, so now check if the plate exists for it 
-                    $plate = \Redirect\Models\Plates::findOne(array(
-                    	'featured_image.slug' => $asset->slug
-                    ));
-
-                    $updated++;
-            
-                    //$plate->save();
-                }
-                else
-                {
-                    $not_found[] = $row;            
-                }
-            }
-            
-            $this->app->set('skipped', $skipped);
-            $this->app->set('updated', $updated);
-            $this->app->set('not_found', $not_found);
-            $this->app->set('message', $message);
-            
-            echo $this->theme->render('Redirect/Admin/Views::importer/tags_results.php');
             
         } 
         catch ( \Exception $e ) 

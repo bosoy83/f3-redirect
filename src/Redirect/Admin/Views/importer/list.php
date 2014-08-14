@@ -10,12 +10,12 @@
         <?php foreach ($paginated->items as $asset) { ?>
             <div class="list-group-item">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-9">
                         <?php echo $asset->title; ?>
                         <p>Created: <?php echo $asset->{'metadata.created.local'}; ?></p>
                     </div>
-                    <div class="col-md-2">
-                        <a href="./admin/redirect/import/preview/<?php echo $asset->id; ?>" class="btn btn-warning">Preview Import</a>
+                    <div class="col-md-3">
+                        <a href="./admin/redirect/import/preview/<?php echo $asset->id; ?>" class="btn btn-warning pull-right">Preview data before importing</a>
                     </div>                    
                 </div>
             </div>

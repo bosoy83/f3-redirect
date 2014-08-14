@@ -13,6 +13,13 @@
                         </span>
                     </div>
                 </div>
+                <div class="col-md-8">
+                    <p>CSV format.  File should have two columns.  First row of the file should be the following headers:</p>
+                    <ul>
+                        <li> Column 1: <b>Original</b></li>
+                        <li> Column 2: <b>Target</b></li>
+                    </ul>
+                </div>
             </div>
         </form>
     </div>
