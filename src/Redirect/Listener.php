@@ -28,6 +28,11 @@ class Listener extends \Prefab
                     'icon' => 'fa fa-list'
                 ),
                 array(
+                    'title' => 'Import',
+                    'route' => './admin/redirect/import',
+                    'icon' => 'fa fa-upload'
+                ),                
+                array(
                     'title' => 'Settings',
                     'route' => './admin/redirect/settings',
                     'icon' => 'fa fa-cogs'

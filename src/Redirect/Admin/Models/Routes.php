@@ -124,6 +124,16 @@ class Routes extends \Dsc\Mongo\Collections\Nodes
             $this->setError('Missing information about redirection');
         }
         
+        if (strpos( $this->{'url.alias'}, '/' ) === 0 )
+        {
+            $this->{'url.alias'} = substr($this->{'url.alias'}, 1);
+        }
+        
+        if (strpos( $this->{'url.redirect'}, '/' ) === 0 )
+        {
+            $this->{'url.redirect'} = substr($this->{'url.redirect'}, 1);
+        }        
+        
         return parent::beforeSave();
     }
 }

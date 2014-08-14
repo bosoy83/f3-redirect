@@ -3,10 +3,7 @@ namespace Redirect;
 
 class Routes extends \Dsc\Routes\Group
 {
-    /**
-     * Initializes all routes for this group
-     * NOTE: This method should be overriden by every group
-     */
+
     public function initialize()
     {
         $this->setDefaults(array(
@@ -15,8 +12,31 @@ class Routes extends \Dsc\Routes\Group
         ));
         
         $this->addSettingsRoutes();
+        
         $this->addCrudGroup('Routes', 'Route', array(
             'datatable_links' => true
         ));
+        
+        $this->add( '/import', 'GET', array(
+            'controller' => 'Importer',
+            'action' => 'index'
+        ) );
+        
+        $this->add( '/import/handleUpload', 'POST', array(
+            'controller' => 'Importer',
+            'action' => 'handleUpload'
+        ) );        
+        
+        $this->add( '/import/preview/@id', 'GET', array(
+            'controller' => 'Importer',
+            'action' => 'preview'
+        ) );
+
+        $this->add( '/import/routes/@id', 'GET', array(
+            'controller' => 'Importer',
+            'action' => 'routes'
+        ) );        
+        
+        $this->app->route( 'GET /admin/redirect/import/@task', '\Redirect\Admin\Controllers\Importer->@task' );        
     }
 }
