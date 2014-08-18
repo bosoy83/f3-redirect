@@ -66,8 +66,9 @@ class Routes extends \Dsc\Mongo\Collections\Nodes
         		$pattern = substr($pattern, 1 );
         	}
         	
-        	$pattern = str_replace( '/', '\/', $pattern );
-            $this->setCondition('url.alias', new \MongoRegex( '/(\/)?' . $pattern . '/' ) );
+        	//$pattern = str_replace( '/', '\/', $pattern );
+            //$this->setCondition('url.alias', new \MongoRegex( '/(\/)?' . $pattern . '/' ) );
+        	$this->setCondition('url.alias', $pattern );
         }
         
         $filter_ids = $this->getState('filter.ids');

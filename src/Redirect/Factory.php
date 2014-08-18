@@ -20,12 +20,14 @@ class Factory extends \Dsc\Singleton
             // lets find a proper redirection, if exists
             $path = substr($model->inputFilter()->clean($f3->hive()['PATH'], 'string'), 1);
             $redirect = null;
-            if ($route = $model->setState('filter.url.alias', $path)->getItem())
+            $route = $model->setState('filter.url.alias', $path)->getItem();
+            
+            if (!empty($route->id))
             {
             	// count the number of times a redirect is hit and track the date of the last hit
                 $route->hits = (int) $route->hits + 1;
                 $route->last_hit = \Dsc\Mongo\Metastamp::getDate('now');
-                $route->save();
+                $route->store();
                 
                 $redirect = trim($route->{'url.redirect'});
             }
