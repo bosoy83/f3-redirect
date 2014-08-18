@@ -48,41 +48,36 @@ class Importer extends \Admin\Controllers\BaseAuth
             }
             
             $file = new \SplTempFileObject();
-            if ($contents = @file_get_contents( \Dsc\Url::base() . 'asset/' . $item->slug )) 
+            
+            // TODO Push this to the Assets model
+            switch ($item->storage)
             {
-                $file->fwrite($contents);
+                case "s3":
+                    $contents = @file_get_contents( $item->url );
+            
+                    break;
+                case "gridfs":
+                default:
+            
+                    $length = $item->length;
+                    $chunkSize = $item->chunkSize;
+                    $chunks = ceil( $length / $chunkSize );
+            
+                    $collChunkName = $item->collectionNameGridFS() . ".chunks";
+                    $collChunks = $item->getDb()->{$collChunkName};
+            
+                    $contents = null;
+                    for( $i=0; $i<$chunks; $i++ )
+                    {
+                        $chunk = $collChunks->findOne( array( "files_id" => $item->_id, "n" => $i ) );
+                        $contents .=  $chunk["data"]->bin;
+                    }
+            
+                    break;
             }
-            else 
-            {
-                // TODO Push this to the Assets model
-                switch ($item->storage)
-                {
-                    case "s3":
-                        $contents = @file_get_contents( $item->url );
-                
-                        break;
-                    case "gridfs":
-                    default:
-                        
-                        $length = $item->length;
-                        $chunkSize = $item->chunkSize;
-                        $chunks = ceil( $length / $chunkSize );
-                        
-                        $collChunkName = $item->collectionNameGridFS() . ".chunks";
-                        $collChunks = $item->getDb()->{$collChunkName};
-                        
-                        $contents = null;
-                        for( $i=0; $i<$chunks; $i++ )
-                        {
-                            $chunk = $collChunks->findOne( array( "files_id" => $item->_id, "n" => $i ) );
-                            $contents .=  $chunk["data"]->bin;
-                        }
-                                        
-                        break;
-                }
-                
-                $file->fwrite($contents);
-            }
+            
+            $file->fwrite($contents);
+            
             
             $reader = new \Ddeboer\DataImport\Reader\CsvReader($file, ",");
             $reader->setHeaderRowNumber(0);
@@ -124,41 +119,35 @@ class Importer extends \Admin\Controllers\BaseAuth
             }
             
             $file = new \SplTempFileObject();
-            if ($contents = @file_get_contents( \Dsc\Url::base() . 'asset/' . $item->slug ))
+            // TODO Push this to the Assets model
+            switch ($item->storage)
             {
-                $file->fwrite($contents);
+                case "s3":
+                    $contents = @file_get_contents( $item->url );
+            
+                    break;
+                case "gridfs":
+                default:
+            
+                    $length = $item->length;
+                    $chunkSize = $item->chunkSize;
+                    $chunks = ceil( $length / $chunkSize );
+            
+                    $collChunkName = $item->collectionNameGridFS() . ".chunks";
+                    $collChunks = $item->getDb()->{$collChunkName};
+            
+                    $contents = null;
+                    for( $i=0; $i<$chunks; $i++ )
+                    {
+                        $chunk = $collChunks->findOne( array( "files_id" => $item->_id, "n" => $i ) );
+                        $contents .=  $chunk["data"]->bin;
+                    }
+            
+                    break;
             }
-            else
-            {
-                // TODO Push this to the Assets model
-                switch ($item->storage)
-                {
-                    case "s3":
-                        $contents = @file_get_contents( $item->url );
             
-                        break;
-                    case "gridfs":
-                    default:
+            $file->fwrite($contents);
             
-                        $length = $item->length;
-                        $chunkSize = $item->chunkSize;
-                        $chunks = ceil( $length / $chunkSize );
-            
-                        $collChunkName = $item->collectionNameGridFS() . ".chunks";
-                        $collChunks = $item->getDb()->{$collChunkName};
-            
-                        $contents = null;
-                        for( $i=0; $i<$chunks; $i++ )
-                        {
-                            $chunk = $collChunks->findOne( array( "files_id" => $item->_id, "n" => $i ) );
-                            $contents .=  $chunk["data"]->bin;
-                        }
-            
-                        break;
-                }
-            
-                $file->fwrite($contents);
-            }
             $reader = new \Ddeboer\DataImport\Reader\CsvReader($file, ",");
             $reader->setHeaderRowNumber(0);
             
