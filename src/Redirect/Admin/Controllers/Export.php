@@ -25,22 +25,27 @@ class Export extends \Admin\Controllers\BaseAuth
         // Write column headers:
         $writer->writeItem(array(
             'id',
+            'hits',
             'alias',
-            'redirect'
+            'redirect',            
         ));
         
         // write items
         $cursor = (new \Redirect\Admin\Models\Routes)->collection()->find(array(), array(
             '_id' => 1,
-            'url' => 1
+            'url' => 1,
+            'hits' => 1,
+        ))->sort(array(
+            'hits' => -1
         ));
         
         foreach ($cursor as $doc)
         {
             $writer->writeItem(array(
                 $doc['_id'],
+                (int) $doc['hits'],
                 @$doc['url']['alias'],
-                @$doc['url']['redirect'],
+                @$doc['url']['redirect'],                
             ));
         }
         
