@@ -33,6 +33,11 @@ class Listener extends \Prefab
                     'icon' => 'fa fa-upload'
                 ),                
                 array(
+                    'title' => 'Export',
+                    'route' => './admin/redirect/export',
+                    'icon' => 'fa fa-download'
+                ),                
+                array(
                     'title' => 'Settings',
                     'route' => './admin/redirect/settings',
                     'icon' => 'fa fa-cogs'

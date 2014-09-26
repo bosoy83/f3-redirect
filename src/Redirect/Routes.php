@@ -37,6 +37,16 @@ class Routes extends \Dsc\Routes\Group
             'action' => 'routes'
         ) );        
         
-        $this->app->route( 'GET /admin/redirect/import/@task', '\Redirect\Admin\Controllers\Importer->@task' );        
+        $this->app->route( 'GET /admin/redirect/import/@task', '\Redirect\Admin\Controllers\Importer->@task' );
+
+        $this->add( '/export', 'GET', array(
+            'controller' => 'Export',
+            'action' => 'index'
+        ) );
+        
+        $this->add( '/export/@task', 'GET', array(
+            'controller' => 'Export',
+            'action' => '@task'
+        ) );
     }
 }
