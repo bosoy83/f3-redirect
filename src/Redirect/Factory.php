@@ -88,6 +88,14 @@ class Factory extends \Dsc\Singleton
             // let f3 default error handler handle all other error types
             $response->action = false;
         }
+        
+        // clear any system error messages if the response is redirect
+        // so that the user doesn't get displayed "invalid item" notices
+        if ($response->action == 'redirect') 
+        {
+            $messages = \Dsc\System::instance()->getMessages();
+        }
+        
         return $response;
     }
 }
