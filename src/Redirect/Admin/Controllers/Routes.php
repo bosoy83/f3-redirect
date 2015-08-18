@@ -17,7 +17,8 @@ class Routes extends \Admin\Controllers\BaseAuth
     {
         $model = $this->getModel();
         $model->populateState();
-        $state = $model->setState('filter.type', true)->getState();
+        $state = $model->setState('filter.type', true)->setState('filter.noredirect', true)->getState();
+        
         $model->setParam( 'skip', $model->getState('list.offset', 0) );
         $model->setParam( 'limit', $model->getState('list.limit', 0) );
         \Base::instance()->set('state', $state );
@@ -35,11 +36,13 @@ class Routes extends \Admin\Controllers\BaseAuth
         
         $state = $model->populateState()->getState();
         \Base::instance()->set('state', $state );
+        
         $model->setParam( 'skip', $model->getState('list.offset', 0) );
         $model->setParam( 'limit', $model->getState('list.limit', 0) );
         
 		\Base::instance()->set( 'paginated', $model->paginate() );
-                $html = \Dsc\System::instance()->get('theme')->renderLayout('Redirect/Admin/Views::routes/list_datatable.php');
+
+		$html = \Dsc\System::instance()->get('theme')->renderLayout('Redirect/Admin/Views::routes/list_datatable.php');
         
         return $this->outputJson( $this->getJsonResponse( array(
                 'result' => $html

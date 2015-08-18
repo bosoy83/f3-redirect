@@ -58,6 +58,13 @@ class Routes extends \Dsc\Mongo\Collections\Nodes
             $this->setCondition('title', new \MongoRegex('/' . $filter_title . '/i'));
         }
         
+        $filter_noredirect = $this->getState('filter.noredirect');
+        if (strlen($filter_noredirect))
+        {
+        	$this->setCondition('url.redirect', '');
+        }
+        
+        
         $filter_url_alias = $this->getState('filter.url.alias');
         if (strlen($filter_url_alias))
         {
@@ -83,6 +90,9 @@ class Routes extends \Dsc\Mongo\Collections\Nodes
                 '$in' => $ids
             ));
         }
+        
+        
+        
         
         return $this;
     }
